@@ -1,6 +1,8 @@
 name: Checks
 
 on:
+  push:
+    branches: ["feat/wasm-ci"]
   pull_request:
   schedule:
     - cron: "0 14 * * *"
@@ -71,7 +73,7 @@ jobs:
   Documentation-Site-Test:
     runs-on: ubuntu-latest
     # This has no impact on publishing the actual source code
-    if: ${{ github.event_name == 'pull_request' }}
+    if: github.event_name == 'pull_request' || github.ref_name == 'feat/wasm-ci'
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
